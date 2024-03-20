@@ -1,3 +1,4 @@
+from datetime import date
 from pytest import raises, fixture
 from pay.payment import pay_order
 from pay.order import Order, LineItem
@@ -11,10 +12,11 @@ class PaymentProcessorMock:
 
 @fixture
 def card() -> CreditCard:
+    year = date.today().year + 2
     return CreditCard(
         card_number="1249190007575069",
         month=12,
-        year=2025,
+        year=year,
         amount=100,
     )
 

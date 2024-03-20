@@ -1,3 +1,4 @@
+from datetime import date
 from pytest import raises, fixture
 from pay.credit_card import CreditCard
 from pay.processor import PaymentProcessor
@@ -8,10 +9,11 @@ API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"
 
 @fixture
 def card() -> CreditCard:
+    year = date.today().year + 2
     return CreditCard(
         card_number="1249190007575069",
         month=12,
-        year=2025,
+        year=year,
         amount=100,
     )
 
