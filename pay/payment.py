@@ -1,17 +1,17 @@
 # namespace UnitTest.Pay.Payment
 
+from typing import Protocol
 from pay.order import Order
-from pay.processor import PaymentProcessor
+from pay.credit_card import CreditCard
 
 
-def pay_order(order: Order):
+class PaymentProcessor(Protocol):
+    def charge(self, card: CreditCard, amount: int):
+        """Charges the card with passed amount"""
+        
+
+def pay_order(order: Order, credit_card: CreditCard, payment_processor: PaymentProcessor):
     if (order.total == 0):
         raise ValueError("Can't pay an Order with total 0.")
-    card = input("Please enter your card number: ")
-    month = int(input("Please enter the card expiry month: "))
-    year = int(input("Please enter the card expiry year: "))
-    payment_processor = PaymentProcessor("6cfb67f3-6281-4031-b893-ea85db0dce20")
-    payment_processor.charge(
-        card, month, year, amount=order.total
-    )  
+    payment_processor.charge(credit_card, amount=order.total)  
     order.pay()
