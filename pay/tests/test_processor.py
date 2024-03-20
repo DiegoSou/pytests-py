@@ -45,7 +45,7 @@ def test_validate_card_success(card: CreditCard):
 
 
 def test_validate_card_error(card: CreditCard):
-    card.year = 1988
+    card.year = date.today().year - 10
     payment_processor = PaymentProcessor(API_KEY)
     card_is_not_valid = not payment_processor.validate_card(card)
     
@@ -58,7 +58,7 @@ def test_charge_success(card: CreditCard):
 
 
 def test_charge_card_error(card: CreditCard):
-    card.year = 1988
+    card.year = date.today().year - 10
     payment_processor = PaymentProcessor(API_KEY)
     with raises(ValueError) as error_info:
         payment_processor.charge(card, 500)
