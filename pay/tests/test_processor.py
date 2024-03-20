@@ -1,10 +1,12 @@
+import os
 from datetime import date
+from dotenv import load_dotenv
 from pytest import raises, fixture
 from pay.credit_card import CreditCard
 from pay.processor import PaymentProcessor
 
-
-API_KEY = "6cfb67f3-6281-4031-b893-ea85db0dce20"
+load_dotenv()
+API_KEY = os.getenv("API_KEY") or ""
 
 
 @fixture

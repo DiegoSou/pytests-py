@@ -1,7 +1,12 @@
 # namespace UnitTest.Pay.Processor
 
+import os
 from datetime import datetime
 from pay.credit_card import CreditCard
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY") or ""
 
 
 class PaymentProcessor:
@@ -10,7 +15,7 @@ class PaymentProcessor:
 
   
     def check_api_key(self) -> bool:
-        return self.api_key == "6cfb67f3-6281-4031-b893-ea85db0dce20"
+        return self.api_key == API_KEY
 
 
     def charge(self, credit_card: CreditCard, amount: int) -> None:
