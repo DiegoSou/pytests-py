@@ -3,7 +3,7 @@ from datetime import date
 from dotenv import load_dotenv
 from pytest import raises, fixture
 from pay.credit_card import CreditCard
-from pay.processor import PaymentProcessor
+from pay.processor import PaymentProcessor, luhn_checksum
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY") or ""
@@ -75,11 +75,11 @@ def test_charge_api_error(card: CreditCard):
 
 
 def test_luhn_checksum_success():
-    sum_is_valid = payment_processor.luhn_checksum("1249190007575069")
+    sum_is_valid = luhn_checksum("1249190007575069")
     assert sum_is_valid
 
 
 def test_luhn_checksum_error():
-    sum_is_not_valid = not payment_processor.luhn_checksum("11234567891012135")
+    sum_is_not_valid = not luhn_checksum("11234567891012135")
     assert sum_is_not_valid
 
