@@ -1,0 +1,4 @@
+**/__pycache/__
+.pytest_cache
+venv
+.coverage
