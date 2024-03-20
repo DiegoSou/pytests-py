@@ -37,20 +37,6 @@ def test_check_api_key_error():
     assert invalid_api_key
 
 
-def test_luhn_checksum_success():
-    payment_processor = PaymentProcessor(API_KEY)
-    sum_is_valid = payment_processor.luhn_checksum("1249190007575069")
-    
-    assert sum_is_valid
-
-
-def test_luhn_checksum_error():
-    payment_processor = PaymentProcessor(API_KEY)
-    sum_is_not_valid = not payment_processor.luhn_checksum("11234567891012135")
-    
-    assert sum_is_not_valid
-
-
 def test_validate_card_success(card: CreditCard):
     payment_processor = PaymentProcessor(API_KEY)
     card_is_valid = payment_processor.validate_card(card)
@@ -84,3 +70,14 @@ def test_charge_api_error(card: CreditCard):
     with raises(ValueError) as error_info:
         payment_processor.charge(card, 500)
     assert "Invalid API key" in str(error_info.value)
+
+
+def test_luhn_checksum_success():
+    sum_is_valid = payment_processor.luhn_checksum("1249190007575069")
+    assert sum_is_valid
+
+
+def test_luhn_checksum_error():
+    sum_is_not_valid = not payment_processor.luhn_checksum("11234567891012135")
+    assert sum_is_not_valid
+
